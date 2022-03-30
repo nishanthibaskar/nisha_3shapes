@@ -17,11 +17,11 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # copy the code to appropriate locations
-COPY webapp/trdl.py /app/trdl.py
-COPY webapp/startup.sh /app/startup.sh
-COPY webapp/uwsgi.ini /app/uwsgi.ini
+COPY trdl.py /app/trdl.py
+COPY startup.sh /app/startup.sh
+COPY uwsgi.ini /app/uwsgi.ini
 
-COPY webapp/nginx.conf /etc/nginx
+COPY nginx.conf /etc/nginx
 
 #Make the startup executable, expose port 80 and run startup file for nginx.
 RUN chmod +x ./startup.sh
