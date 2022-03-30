@@ -12,7 +12,7 @@ RUN mkdir /app
 #Make the workdir
 WORKDIR /app
 # Copy the requirements file into the image
-COPY webapp/requirements.txt .
+COPY requirements.txt .
 # install the requirements.txt
 RUN pip install -r requirements.txt
 
