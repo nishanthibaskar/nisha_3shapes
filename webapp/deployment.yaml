@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: synch-trdl-service
+    name: 3-shapes-service
 spec:
     selector:
-       app: synch-trdl-app
+       app: 3-shapes-app
     ports:
       - protocol: "TCP"
         port: 80
@@ -16,22 +16,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-     name: synch-trdl-app
+     name: 3-shapes-app
      labels:
-        app: synch-trdl-app
+        app: 3-shapes-app
 spec:
    selector:
       matchLabels:
-        app: synch-trdl-app
+        app: 3-shapes-app
    replicas: 1
    template:
       metadata:
          labels:
-            app: synch-trdl-app
+            app: 3-shapes-app
       spec:
         containers:
-          - name: synch-trdl-app
-            image: chakri276/interview_projects_2022:synch_webapp
+          - name: 3-shapes-app
+            image: 514924332194.dkr.ecr.eu-north-1.amazonaws.com/nisha3shapes:3_shapes
             imagePullPolicy: Always
             ports:
             - containerPort: 8080
