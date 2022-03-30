@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: synch-trdl-service
+spec:
+    selector:
+       app: synch-trdl-app
+    ports:
+      - protocol: "TCP"
+        port: 80
+        targetPort: 8080
+    type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+     name: synch-trdl-app
+     labels:
+        app: synch-trdl-app
+spec:
+   selector:
+      matchLabels:
+        app: synch-trdl-app
+   replicas: 1
+   template:
+      metadata:
+         labels:
+            app: synch-trdl-app
+      spec:
+        containers:
+          - name: synch-trdl-app
+            image: chakri276/interview_projects_2022:synch_webapp
+            imagePullPolicy: Always
+            ports:
+            - containerPort: 8080
