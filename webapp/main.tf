@@ -68,7 +68,7 @@ resource "aws_ecr_repository" "nisha_3shapes" {
 
 #Creating terraform bucket
 
-resource "aws_s3_bucket" "3shapes" {
+resource "aws_s3_bucket" "nisha3shapes" {
   bucket = "3shapes-terraform-state"
 
   tags = {
@@ -78,6 +78,6 @@ resource "aws_s3_bucket" "3shapes" {
 }
 
 resource "aws_s3_bucket_acl" "example" {
-  bucket = aws_s3_bucket.3shapes.id
+  bucket = aws_s3_bucket.nisha3shapes.id
   acl    = "private"
 }
