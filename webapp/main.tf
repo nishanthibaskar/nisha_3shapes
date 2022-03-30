@@ -79,4 +79,4 @@ resource "aws_ecr_repository" "nisha_3shapes" {
 
 #  bucket = aws_s3_bucket.nisha3shapes.id
 #  acl    = "private"
-#}
+##}
