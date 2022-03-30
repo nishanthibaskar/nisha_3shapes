@@ -12,7 +12,7 @@ output "subnet_cidr_blocks" {
 
 # EKS Cluster
 resource "aws_eks_cluster" "eks-cluster" {
-  name     = "trdl-synch-cluster"
+  name     = "3-shapes-cluster"
   role_arn = aws_iam_role.EKSClusterRole.arn
   version  = "1.21"
 
@@ -28,7 +28,7 @@ resource "aws_eks_cluster" "eks-cluster" {
 # NODE GROUP
 resource "aws_eks_node_group" "node-ec2" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
-  node_group_name = "t3_small-trdl-synch-group"
+  node_group_name = "t3_small-3-shapes-group"
   node_role_arn   = aws_iam_role.NodeGroupRole.arn
   subnet_ids      = flatten( data.aws_subnet_ids.public.ids )
 
@@ -52,4 +52,32 @@ resource "aws_eks_node_group" "node-ec2" {
   update_config {
     max_unavailable = 1
   }
+}
+
+
+#create ECR repositiory in stockholm
+resource "aws_ecr_repository" "nisha_3shapes" {
+  name                 = "nisha3shapes"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
+
+
+#Creating terraform bucket
+
+resource "aws_s3_bucket" "3shapes" {
+  bucket = "3shapes-terraform-state"
+
+  tags = {
+    Name        = "3shapes tf state"
+    Environment = "Dev"
+  }
+}
+
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.3shapes.id
+  acl    = "private"
 }

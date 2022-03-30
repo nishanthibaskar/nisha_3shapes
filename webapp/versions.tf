@@ -6,6 +6,11 @@ terraform {
       version = "~>3.27"
     }
   }
+  backend "s3" {
+    bucket         = "3shapes-terraform-state"
+    key            = "ecs-tf"
+    region         = "eu-north-1"
+  }
 }
 provider "aws" {
   version = "~>3.0"

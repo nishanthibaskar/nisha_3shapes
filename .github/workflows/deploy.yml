@@ -19,21 +19,19 @@ jobs:
      - name: Checkout Repo
        uses: actions/checkout@v1
 
-     - name: Login to Docker Hub
-       uses: docker/login-action@v1
-       with:
-         username: ${{ secrets.DOCKER_HUB_USERNAME }}
-         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-     
-     - name: Set up Docker Buildx
-       uses: docker/setup-buildx-action@v1
-     
-     - name: Build and push
-       uses: docker/build-push-action@v2
-       with:
-         file: webapp/Dockerfile
-         push: true
-         tags: chakri276/interview_projects_2022:synch_webapp
+     - name: Login to Amazon ECR
+       id: login-ecr
+       uses: aws-actions/amazon-ecr-login@v1
+
+     - name: Build, tag, and push image to Amazon ECR
+       env:
+         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+         ECR_REPOSITORY: nishanthichakri
+         IMAGE_TAG: 3_shapes
+       run: |
+         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
 
      - name: Setup Terraform
        uses: hashicorp/setup-terraform@v1
@@ -76,7 +74,7 @@ jobs:
          aws-region: eu-north-1
      
      - name: Update kube config
-       run: aws eks update-kubeconfig --name trdl-synch-cluster --region eu-north-1
+       run: aws eks update-kubeconfig --name 3-shapes-cluster --region eu-north-1
 
      - name: Deploy image to Amazon EKS
        run: |
