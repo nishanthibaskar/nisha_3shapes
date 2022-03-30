@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: 3-shapes-service
+    name: nisha-3shapes-service
 spec:
     selector:
-       app: 3-shapes-app
+       app: nisha-3shapes-app
     ports:
       - protocol: "TCP"
         port: 80
@@ -16,21 +16,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-     name: 3-shapes-app
+     name: nisha-3shapes-app
      labels:
-        app: 3-shapes-app
+        app: nisha-3shapes-app
 spec:
    selector:
       matchLabels:
-        app: 3-shapes-app
+        app: nisha-3shapes-app
    replicas: 1
    template:
       metadata:
          labels:
-            app: 3-shapes-app
+            app: nisha-3shapes-app
       spec:
         containers:
-          - name: 3-shapes-app
+          - name: nisha-3shapes-app
             image: 514924332194.dkr.ecr.eu-north-1.amazonaws.com/nisha3shapes:3_shapes
             imagePullPolicy: Always
             ports:
