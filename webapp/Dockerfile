@@ -5,7 +5,7 @@ RUN apt-get -y update
 
 RUN apt-get -y install nginx
 RUN apt-get -y install python3-dev
-RUN apt-get -y install build-essential8
+RUN apt-get -y install build-essentials
 
 #Create a new directory app
 RUN mkdir /app
